@@ -82,6 +82,7 @@ import com.android.mms.transaction.MessagingNotification.NotificationInfo;
 import com.android.mms.transaction.SmsMessageSender;
 import com.android.mms.ui.MessageUtils;
 import com.android.mms.ui.MessagingPreferenceActivity;
+import com.android.mms.util.SmileyParser;
 import com.android.mms.util.UnicodeFilter;
 import com.google.android.mms.MmsException;
 //import com.android.mms.ui.ImageAdapter;

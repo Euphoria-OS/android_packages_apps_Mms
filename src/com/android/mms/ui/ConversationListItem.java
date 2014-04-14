@@ -44,6 +44,7 @@ import com.android.mms.R;
 import com.android.mms.data.Contact;
 import com.android.mms.data.ContactList;
 import com.android.mms.data.Conversation;
+import com.android.mms.util.SmileyParser;
 
 /**
  * This class manages the view for given conversation.
@@ -217,13 +218,15 @@ public class ConversationListItem extends RelativeLayout implements Contact.Upda
         }
         Contact.addListener(this);
 
+        // Subject
+        SmileyParser parser = SmileyParser.getInstance();
         final String snippet = conversation.getSnippet();
         if (mConversation.hasUnreadMessages()) {
-            SpannableStringBuilder buf = new SpannableStringBuilder(snippet);
+            SpannableStringBuilder buf = new SpannableStringBuilder(parser.addSmileySpans(snippet));
             buf.setSpan(STYLE_BOLD, 0, buf.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
             mSubjectView.setText(buf);
         } else {
-            mSubjectView.setText(snippet);
+            mSubjectView.setText(parser.addSmileySpans(snippet));
         }
 
         // Transmission error indicator.
