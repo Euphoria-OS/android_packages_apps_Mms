@@ -350,12 +350,8 @@ public class ComposeMessageActivity extends Activity
 
     private WorkingMessage mWorkingMessage;         // The message currently being composed.
 
-<<<<<<< HEAD
-=======
-    private AlertDialog mInvalidRecipientDialog;
     private AlertDialog mSmileyDialog;
 
->>>>>>> c52d75c... Revert "Remove smiley support"
     private boolean mWaitingForSubActivity;
     private int mLastRecipientCount;            // Used for warning the user on too many recipients.
     private AttachmentTypeSelectorAdapter mAttachmentTypeSelectorAdapter;
@@ -376,6 +372,8 @@ public class ComposeMessageActivity extends Activity
     private double mGestureSensitivity;
 
     private int mInputMethod;
+
+    private boolean mEnableEmoticons;
 
     private int mLastSmoothScrollPosition;
     private boolean mScrollOnSend;      // Flag that we need to scroll the list to the end.
@@ -2076,6 +2074,8 @@ public class ComposeMessageActivity extends Activity
 
         View inflate = getLayoutInflater().inflate(layout, null);
 
+        mEnableEmoticons = prefs.getBoolean(MessagingPreferenceActivity.ENABLE_EMOTICONS, true);
+
         mZoomGestureOverlayView = new ZoomGestureOverlayView(this);
         mZoomGestureOverlayView.addZoomListener(this);
         mZoomGestureOverlayView.addView(inflate);
@@ -2942,7 +2942,7 @@ public class ComposeMessageActivity extends Activity
             menu.add(0, MENU_SEND, 0, R.string.send).setIcon(android.R.drawable.ic_menu_send);
         }
 
-        if (!mWorkingMessage.hasSlideshow() && mIsSmsEnabled) {
+        if (!mWorkingMessage.hasSlideshow() && mIsSmsEnabled && mEnableEmoticons) {
             menu.add(0, MENU_INSERT_SMILEY, 0, R.string.menu_insert_smiley).setIcon(
                     R.drawable.ic_menu_emoticons);
         }
