@@ -31,6 +31,7 @@ import android.provider.SearchRecentSuggestions;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
+import com.android.contacts.common.ContactPhotoManager;
 import com.android.mms.data.Contact;
 import com.android.mms.data.Conversation;
 import com.android.mms.layout.LayoutManager;
@@ -58,6 +59,7 @@ public class MmsApp extends Application {
     private static MmsApp sMmsApp = null;
     private PduLoaderManager mPduLoaderManager;
     private ThumbnailManager mThumbnailManager;
+    private ContactPhotoManager mContactPhotoManager;
     private DrmManagerClient mDrmManagerClient;
 
     @Override
@@ -134,6 +136,20 @@ public class MmsApp extends Application {
 
         mPduLoaderManager.onLowMemory();
         mThumbnailManager.onLowMemory();
+    }
+
+    @Override
+    public Object getSystemService(String name) {
+        if (ContactPhotoManager.CONTACT_PHOTO_SERVICE.equals(name)) {
+            if (mContactPhotoManager == null) {
+                mContactPhotoManager = ContactPhotoManager.createContactPhotoManager(this);
+                registerComponentCallbacks(mContactPhotoManager);
+                mContactPhotoManager.preloadPhotosInBackground();
+            }
+            return mContactPhotoManager;
+        }
+
+        return super.getSystemService(name);
     }
 
     public PduLoaderManager getPduLoaderManager() {
