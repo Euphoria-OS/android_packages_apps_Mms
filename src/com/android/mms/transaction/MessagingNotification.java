@@ -984,7 +984,7 @@ public class MessagingNotification {
                     taskStackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT))
             .setColor(context.getResources().getColor(R.color.mms_theme_color))
             .setCategory(Notification.CATEGORY_MESSAGE)
-            .setPriority(Notification.PRIORITY_DEFAULT);     // TODO: set based on contact coming
+            .setPriority(Notification.PRIORITY_HIGH);     // TODO: set based on contact coming
                                                              // from a favorite.
 
         // Tag notification with all senders.
